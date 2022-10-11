@@ -26,9 +26,32 @@ const display = document.querySelector(".display");
 const buttons = document.querySelectorAll(".buttons");
 
 let displayValue = "";
+let firstVal = "";
+let operator = "";
+let secondVal = "";
+let newDisplay = "";
 buttons.forEach(button => button.addEventListener("click", function(e) {
-    displayValue = e.target.textContent;
-    display.textContent = displayValue;
+    if(e.target.className == "buttons num") {
+        displayValue += e.target.textContent;
+        display.textContent = displayValue;
+    } else if(e.target.className == "buttons oper") {
+        firstVal = parseInt(displayValue);
+        operator = e.target.textContent;
+        display.textContent = e.target.textContent;
+
+        buttons.forEach(button => button.addEventListener("click", function(e) {
+            if(e.target.className == "buttons num") {
+                newDisplay += e.target.textContent;
+                display.textContent = newDisplay;
+            } else if (e.target.id == "equal") {
+                secondVal = parseInt(newDisplay);
+                console.log(operator);
+                if(operator == "+") {
+                    display.textContent = add(firstVal, secondVal);
+                }
+            }
+        }))
+    }
 }));
 
 
