@@ -22,3 +22,13 @@ function divide(a, b) {
     else if (operator == "/") {return divide(num1, num2);}
   }
 
+const display = document.querySelector(".display");
+const buttons = document.querySelectorAll(".buttons");
+
+let displayValue = "";
+buttons.forEach(button => button.addEventListener("click", function(e) {
+    displayValue = e.target.textContent;
+    display.textContent = displayValue;
+}));
+
+
