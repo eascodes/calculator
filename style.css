@@ -1,6 +1,7 @@
 body {
     display: flex;
     justify-content: center;
+    background: rgb(200, 219, 200);
 }
 
 .calc-container {
@@ -40,22 +41,35 @@ body {
     font-family: sans-serif;
     height: 50px;
     width: 50px;
-    background: orange;
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
-}
-
-.buttons.oper,
-#AC,
-#C,
-#percent {
     background: black;
     color: white;
+}
+
+.buttons.num,
+.buttons.other {
+    background: orange;
+    color: black;
+}
+
+.buttons:hover,
+#AC:hover,
+#C:hover,
+#percent:hover {
+    cursor: pointer;
+    background: white;
+    color: black;
 }
 
 #equal {
     width: 110px;
     border-radius: 15px;
+}
+
+.selected {
+    background: white;
+    color: black;
 }
