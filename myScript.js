@@ -62,7 +62,7 @@ function clearDisplay() {
 
  percent.addEventListener("click", makePercent);
  function makePercent() {
-    display.textContent = displayValue / 100;
+    display.textContent = Number(Math.round((displayValue / 100) + 'e8') + 'e-8');
  }
 
 function removeEvents() {
@@ -123,3 +123,4 @@ function completeCalc(e) {
         }
     }
 }
+
