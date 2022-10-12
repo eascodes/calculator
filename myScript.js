@@ -1,13 +1,13 @@
 function add(a, b) {
-    return Number(Math.round((a + b) + 'e2') + 'e-2');
+    return Number(Math.round((a + b) + 'e8') + 'e-8');
   };
   
 function subtract(a, b) {
-    return Number(Math.round((a - b) + 'e2') + 'e-2');
+    return Number(Math.round((a - b) + 'e8') + 'e-8');
   };
 
 function multiply(a, b) {
-    return Number(Math.round((a * b) + 'e2') + 'e-2');
+    return Number(Math.round((a * b) + 'e8') + 'e-8');
   };
 
 function divide(a, b) {
@@ -53,6 +53,9 @@ function clearDisplay() {
 
  dot.addEventListener("click", addDot);
  function addDot() {
+    if (displayValue.includes(".")) {
+        return;
+    }
     displayValue += ".";
     display.textContent = displayValue;
  }
@@ -110,3 +113,7 @@ function completeCalc(e) {
         }
     }
 }
+
+//add keyboard support
+//make operator keys a different color, center calculator
+//clean up code
