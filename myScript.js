@@ -72,6 +72,13 @@ function removeEvents() {
 
 function setInitialEvent() {buttons.forEach(button => button.addEventListener("click", startCalc));}
 
+function removeClass() {
+    buttons.forEach(button => { 
+        if(button.classList.contains("selected")) {
+            button.classList.remove("selected");
+    }});
+}
+
 function startCalc(e) {
     if(e.target.className == "buttons num") {
         displayValue += e.target.textContent;
@@ -79,6 +86,7 @@ function startCalc(e) {
     } else if(e.target.className == "buttons oper") {
         firstVal = parseFloat(display.textContent);
         operator = e.target.textContent;
+        e.target.classList.add("selected");
         resetEvents();
     }
 }
@@ -91,9 +99,11 @@ function resetEvents() {
 
 function completeCalc(e) {
     if(e.target.className == "buttons num") {
+        removeClass();
         displayValue += e.target.textContent;
         display.textContent = displayValue;
     } else if (e.target.className == "buttons oper") {
+        e.target.classList.add("selected");
         secondVal = parseFloat(displayValue);
         firstResult = operate(firstVal, operator, secondVal);
         operator = e.target.textContent;
@@ -113,7 +123,3 @@ function completeCalc(e) {
         }
     }
 }
-
-//add keyboard support
-//make operator keys a different color, center calculator
-//clean up code
