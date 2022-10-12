@@ -41,6 +41,14 @@
     align-items: center;
 }
 
+.buttons.oper,
+#AC,
+#C,
+#percent {
+    background: black;
+    color: white;
+}
+
 #equal {
     width: 110px;
     border-radius: 15px;
