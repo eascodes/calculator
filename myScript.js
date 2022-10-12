@@ -1,18 +1,18 @@
 function add(a, b) {
-    return a + b;
+    return Number(Math.round((a + b) + 'e2') + 'e-2');
   };
   
 function subtract(a, b) {
-    return a - b;
+    return Number(Math.round((a - b) + 'e2') + 'e-2');
   };
 
 function multiply(a, b) {
-    return a * b;
+    return Number(Math.round((a * b) + 'e2') + 'e-2');
   };
 
 function divide(a, b) {
     if (b === 0) alert("You can't do that!");
-    return a / b;
+    return Number(Math.round((a / b) + 'e8') + 'e-8');
   };
 
   function operate(num1, operator, num2) {
@@ -24,31 +24,63 @@ function divide(a, b) {
 
 const display = document.querySelector(".display");
 const buttons = document.querySelectorAll(".buttons");
-
+const clear = document.querySelector("#AC");
+const back = document.querySelector("#C");
+const dot = document.querySelector("#dot");
+const percent = document.querySelector("#percent");
 let displayValue = "";
 let firstVal = "";
 let operator = "";
 let secondVal = "";
-//let newDisplay = "";
 
-getFirstVal();
+setInitialEvent();
 
-function getFirstVal() {buttons.forEach(button => button.addEventListener("click", startCalc));}
+clear.addEventListener("click", clearDisplay);
+function clearDisplay() {
+    display.textContent = "";
+    displayValue = "";
+    removeEvents();
+    setInitialEvent();
+}
+
+ back.addEventListener("click", backspace);
+ function backspace() {
+    if(displayValue.length > 0) {
+        displayValue = displayValue.slice(0, -1);
+        display.textContent = displayValue;
+     }
+ }
+
+ dot.addEventListener("click", addDot);
+ function addDot() {
+    displayValue += ".";
+    display.textContent = displayValue;
+ }
+
+ percent.addEventListener("click", makePercent);
+ function makePercent() {
+    display.textContent = displayValue / 100;
+ }
+
+function removeEvents() {
+    buttons.forEach(button => button.removeEventListener("click", completeCalc))
+    buttons.forEach(button => button.removeEventListener("click", startCalc))
+}
+
+function setInitialEvent() {buttons.forEach(button => button.addEventListener("click", startCalc));}
 
 function startCalc(e) {
     if(e.target.className == "buttons num") {
         displayValue += e.target.textContent;
         display.textContent = displayValue;
     } else if(e.target.className == "buttons oper") {
-        firstVal = parseInt(display.textContent);
+        firstVal = parseFloat(display.textContent);
         operator = e.target.textContent;
-        console.log(firstVal);
-        display.textContent = e.target.textContent;
-        finishCalc();
+        resetEvents();
     }
 }
 
-function finishCalc() {
+function resetEvents() {
     displayValue = "";
     buttons.forEach(button => button.removeEventListener("click", startCalc))
     buttons.forEach(button => button.addEventListener("click", completeCalc))
@@ -58,24 +90,23 @@ function completeCalc(e) {
     if(e.target.className == "buttons num") {
         displayValue += e.target.textContent;
         display.textContent = displayValue;
+    } else if (e.target.className == "buttons oper") {
+        secondVal = parseFloat(displayValue);
+        firstResult = operate(firstVal, operator, secondVal);
+        operator = e.target.textContent;
+        firstVal = firstResult;
+        display.textContent = firstResult;
+        displayValue = "";
+        buttons.forEach(button => button.removeEventListener("click", completeCalc))
+        resetEvents();
     } else if (e.target.id == "equal") {
-        secondVal = parseInt(displayValue);
-        if(operator == "+") {
-            firstResult = add(firstVal, secondVal);
+        buttons.forEach(button => button.removeEventListener("click", completeCalc))
+        secondVal = parseFloat(displayValue);
+        if (operator == "+" || operator == "-" || operator == "*" || operator == "/") {
+            firstResult = operate(firstVal, operator, secondVal);
             display.textContent = firstResult;
             displayValue = "";
-            getFirstVal();
-        } else if(operator == "-") {
-            display.textContent = subtract(firstVal, secondVal);
-        } else if(operator == "*") {
-            display.textContent = multiply(firstVal, secondVal);
-        } else if(operator == "/") {
-            display.textContent = divide(firstVal, secondVal);
+            setInitialEvent();
         }
     }
 }
-
-function calculate(first) {
-
-}
-
