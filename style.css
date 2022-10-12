@@ -1,4 +1,10 @@
+body {
+    display: flex;
+    justify-content: center;
+}
+
 .calc-container {
+    margin-top: 5%;
     background: gray;
     display: flex;
     flex-direction: column;
