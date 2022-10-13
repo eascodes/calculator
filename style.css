@@ -12,6 +12,7 @@ body {
     align-items: center;
     width: 280px;
     border-radius: 10px;
+    box-shadow: 5px 10px;
 }
 
 .display {
@@ -25,6 +26,7 @@ body {
     margin-top: 8%;
     margin-bottom: 8%;
     border-radius: 5px;
+    box-shadow: -2px -5px;
 }
 
 .button-container {
